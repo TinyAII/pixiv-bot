@@ -22,8 +22,8 @@
 
 ### 搜索功能
 - `/pixiv <标签>` - 标签搜索插画
-- `/pixiv_deepsearch <标签>` - 深度搜索更多相关作品
-- `/pixiv_and <标签>` - 与搜索(同时包含所有标签)
+- `pixiv深度搜索 <标签>` - 深度搜索更多相关作品
+- `pixiv搜索所有标签 <标签>` - 与搜索(同时包含所有标签)
 - `/pixiv_user_search <用户名>` - 搜索用户
 - `/pixiv_novel <标签>` - 搜索小说
 - `/pixiv_novel download <小说ID>` - 下载小说为 pdf 文件并用文件md5值进行加密
@@ -38,7 +38,7 @@
 - `/pixiv_random_force` - 强制执行当前群聊的随机搜索（调试用）
 
 ### 排除 tag
-- `-<tag>` - 排除包含 `<tag>` 的插画(仅在 /pixiv, /pixiv_novel, /pixiv_deepsearch, /pixiv_and 中有效)
+- `-<tag>` - 排除包含 `<tag>` 的插画(仅在 /pixiv, /pixiv_novel, pixiv深度搜索, pixiv搜索所有标签 中有效)
 
 ### 内容获取
 - `/pixiv_recommended` - 获取推荐作品
@@ -106,8 +106,8 @@
 /pixiv_novel download 12345678
 
 # 高级搜索  
-/pixiv_deepsearch 原神,风景
-/pixiv_and 初音ミク,可爱
+pixiv深度搜索 原神,风景
+pixiv搜索所有标签 初音ミク,可爱
 
 # 获取推荐和排行榜
 /pixiv_recommended

@@ -1904,19 +1904,30 @@ class PixivSearchPlugin(Star):
             yield event.plain_result(result)
 
     @command("pixiv深度搜索")
-    async def pixiv_deepsearch(self, event: AstrMessageEvent, tags: str):
+    async def pixiv_deepsearch(self, event: AstrMessageEvent, tags: str = ""):
         """
         深度搜索 Pixiv 插画，通过翻页获取多页结果
         用法: pixiv深度搜索 <标签1>,<标签2>,...
         注意: 翻页深度由配置中的 deep_search_depth 参数控制
         """
+        # 清理标签字符串
+        cleaned_tags = tags.strip()
+        
         # 验证用户输入
-        if not tags or tags.strip().lower() == "help":
+        if cleaned_tags.lower() == "help":
+            # 显示完整帮助信息
             yield event.plain_result(
                 "用法: pixiv深度搜索 <标签1>,<标签2>,...\n"
                 "深度搜索 Pixiv 插画，将遍历多个结果页面。\n"
                 "支持排除标签功能，使用 -<标签> 来排除特定标签。\n"
                 f"当前翻页深度设置: {self.pixiv_config.deep_search_depth} 页 (-1 表示获取所有页面)"
+            )
+            return
+        elif not cleaned_tags:
+            # 只输入了命令，没有提供标签
+            yield event.plain_result(
+                "缺少目标哦，正确示例：\n"
+                "pixiv深度搜索 <标签>"
             )
             return
 
@@ -1928,7 +1939,7 @@ class PixivSearchPlugin(Star):
             return
 
         # 使用统一的标签处理函数
-        tag_result = validate_and_process_tags(tags.strip())
+        tag_result = validate_and_process_tags(cleaned_tags)
         if not tag_result['success']:
             yield event.plain_result(tag_result['error_message'])
             return
@@ -2052,9 +2063,9 @@ class PixivSearchPlugin(Star):
 
             logger.error(traceback.format_exc())
 
-    @command("pixiv_and")
+    @command("pixiv搜索所有标签")
     async def pixiv_and(self, event: AstrMessageEvent, tags: str = ""):
-        """处理 /pixiv_and 命令，进行 AND 逻辑深度搜索"""
+        """处理 pixiv搜索所有标签 命令，进行 AND 逻辑深度搜索"""
         # 清理标签字符串
         cleaned_tags = tags.strip()
 
@@ -2063,9 +2074,8 @@ class PixivSearchPlugin(Star):
                 "Pixiv 插件 (AND)：用户未提供搜索标签或标签为空，返回帮助信息。"
             )
             yield event.plain_result(
-                "请输入要进行 AND 搜索的标签 (用逗号分隔)。使用 `/pixiv_help` 查看帮助。\n"
-                "支持排除标签功能，使用 -<标签> 来排除特定标签。\n\n"
-                "**配置说明**:\n1. 先配置代理->[Astrbot代理配置教程](https://astrbot.app/config/astrbot-config.html#http-proxy);\n2. 再填入 `refresh_token`->**Pixiv Refresh Token**: 必填，用于 API 认证。获取方法请参考 [pixivpy3 文档](https://pypi.org/project/pixivpy3/) 或[这里](https://gist.github.com/karakoo/5e7e0b1f3cc74cbcb7fce1c778d3709e)。"
+                "缺少目标哦，正确示例：\n"
+                "pixiv搜索所有标签 <标签1>,<标签2>,..."
             )
             return
 
