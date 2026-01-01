@@ -24,24 +24,24 @@
 - `/pixiv <标签>` - 标签搜索插画
 - `pixiv深度搜索 <标签>` - 深度搜索更多相关作品
 - `pixiv搜索所有标签 <标签>` - 与搜索(同时包含所有标签)
-- `/pixiv_user_search <用户名>` - 搜索用户
-- `/pixiv_novel <标签>` - 搜索小说
-- `/pixiv_novel download <小说ID>` - 下载小说为 pdf 文件并用文件md5值进行加密
+- `pixiv搜索用户 <用户名>` - 搜索用户
+- `pixiv搜索小说 <标签>` - 搜索小说
+- `/pixiv下载小说并加密 <小说ID>` - 下载小说为 pdf 文件并用文件md5值进行加密
 
 ### 随机搜索功能
-- `/pixiv_random_add <标签>` - 添加随机搜索标签
-- `/pixiv_random_list` - 列出当前随机搜索标签
-- `/pixiv_random_del <序号>` - 删除指定序号的随机搜索标签
-- `/pixiv_random_suspend` - 暂停当前群聊的随机搜索
-- `/pixiv_random_resume` - 恢复当前群聊的随机搜索
-- `/pixiv_random_status` - 查看随机搜索队列状态
+- `/pixiv随机搜索 <标签>` - 添加随机搜索标签
+- `/pixiv列出随机搜索标签` - 列出当前随机搜索标签
+- `/pixiv删除随机搜索标签 <序号>` - 删除指定序号的随机搜索标签
+- `/pixiv暂停随机搜索` - 暂停当前群聊的随机搜索
+- `/pixiv恢复随机搜索` - 恢复当前群聊的随机搜索
+- `/pixiv查看随机搜索队列状态` - 查看随机搜索队列状态
 - `/pixiv_random_force` - 强制执行当前群聊的随机搜索（调试用）
 
 ### 排除 tag
-- `-<tag>` - 排除包含 `<tag>` 的插画(仅在 /pixiv, /pixiv_novel, pixiv深度搜索, pixiv搜索所有标签 中有效)
+- `-<tag>` - 排除包含 `<tag>` 的插画(仅在 /pixiv, pixiv搜索小说, pixiv深度搜索, pixiv搜索所有标签 中有效)
 
 ### 内容获取
-- `/pixiv_recommended` - 获取推荐作品
+- `/pixiv推荐作品` - 获取推荐作品
 - `/pixiv_ranking [模式] [日期]` - 排行榜作品
 - `/pixiv_trending_tags` - 获取趋势标签
 - `/pixiv_illust_new [类型] [最大作品ID]` - 获取大家的新插画作品
@@ -103,14 +103,14 @@
 /pixiv 茉莉安,-ntr
 
 # 下载小说
-/pixiv_novel download 12345678
+/pixiv下载小说并加密 12345678
 
 # 高级搜索  
 pixiv深度搜索 原神,风景
 pixiv搜索所有标签 初音ミク,可爱
 
 # 获取推荐和排行榜
-/pixiv_recommended
+/pixiv推荐作品
 /pixiv_ranking daily
 
 # 获取最新作品
@@ -118,6 +118,7 @@ pixiv搜索所有标签 初音ミク,可爱
 /pixiv_novel_new
 
 # 小说相关
+pixiv搜索小说 恋愛
 /pixiv_novel_recommended
 /pixiv_novel_series 123456
 
@@ -129,7 +130,7 @@ pixiv搜索所有标签 初音ミク,可爱
 /pixiv_ai_show_settings true
 
 # 用户相关
-/pixiv_user_search 某个画师名
+pixiv搜索用户 某个画师名
 /pixiv_user_detail 123456
 
 # 特辑功能
@@ -144,12 +145,12 @@ pixiv搜索所有标签 初音ミク,可爱
 /pixiv_subscribe_list
 
 # 随机搜索功能
-/pixiv_random_add 风景
-/pixiv_random_list
-/pixiv_random_del 1
-/pixiv_random_suspend
-/pixiv_random_resume
-/pixiv_random_status
+/pixiv随机搜索 风景
+/pixiv列出随机搜索标签
+/pixiv删除随机搜索标签 1
+/pixiv暂停随机搜索
+/pixiv恢复随机搜索
+/pixiv查看随机搜索队列状态
 /pixiv_random_force
 ```
 

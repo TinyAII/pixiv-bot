@@ -314,7 +314,7 @@ class PixivSearchPlugin(Star):
         help_text = get_help_message("pixiv_help", "帮助消息加载失败，请检查配置文件。")
         yield event.plain_result(help_text)
 
-    @command("pixiv_recommended")
+    @command("pixiv推荐作品")
     async def pixiv_recommended(self, event: AstrMessageEvent, args: str = ""):
         """获取 Pixiv 推荐作品"""
 
@@ -527,13 +527,19 @@ class PixivSearchPlugin(Star):
             logger.error(f"Pixiv 插件：获取相关作品时发生错误 - {e}")
             yield event.plain_result(f"获取相关作品时发生错误: {str(e)}")
 
-    @command("pixiv_user_search")
+    @command("pixiv搜索用户")
     async def pixiv_user_search(self, event: AstrMessageEvent, username: str = ""):
         """搜索 Pixiv 用户"""
         # 检查参数是否为空或为 help
-        if not username.strip() or username.strip().lower() == "help":
+        if username.strip().lower() == "help":
             help_text = get_help_message("pixiv_user_search", "用户搜索帮助消息加载失败，请检查配置文件。")
             yield event.plain_result(help_text)
+            return
+        elif not username.strip():
+            yield event.plain_result(
+                "缺少目标哦，正确示例：\n"
+                "pixiv搜索用户 <用户名>"
+            )
             return
 
         logger.info(f"Pixiv 插件：正在搜索用户 - {username}")
@@ -728,15 +734,21 @@ class PixivSearchPlugin(Star):
             logger.error(f"Pixiv 插件：获取用户作品时发生错误 - {e}")
             yield event.plain_result(f"获取用户作品时发生错误: {str(e)}")
 
-    @command("pixiv_novel")
+    @command("pixiv搜索小说")
     async def pixiv_novel(self, event: AstrMessageEvent, tags: str = ""):
-        """处理 /pixiv_novel 命令，搜索 Pixiv 小说"""
+        """处理 pixiv搜索小说 命令，搜索 Pixiv 小说"""
         cleaned_tags = tags.strip()
 
         # Handle help and empty cases
-        if not cleaned_tags or cleaned_tags.lower() == "help":
+        if cleaned_tags.lower() == "help":
             help_text = get_help_message("pixiv_novel", "小说搜索帮助消息加载失败，请检查配置文件。")
             yield event.plain_result(help_text)
+            return
+        elif not cleaned_tags:
+            yield event.plain_result(
+                "缺少目标哦，正确示例：\n"
+                "pixiv搜索小说 <标签>"
+            )
             return
 
         # 验证是否已认证
@@ -850,12 +862,12 @@ class PixivSearchPlugin(Star):
             logger.error(f"Pixiv 插件：获取推荐小说时发生错误 - {e}")
             yield event.plain_result(f"获取推荐小说时发生错误: {str(e)}")
 
-    @command("pixiv_random_add")
+    @command("pixiv随机搜索")
     async def pixiv_random_add(self, event: AstrMessageEvent, tags: str = ""):
         """添加随机搜索标签"""
         cleaned_tags = tags.strip()
         if not cleaned_tags:
-            yield event.plain_result("请输入要添加的随机搜索标签。")
+            yield event.plain_result("请输入要添加的随机搜索标签。用法: /pixiv随机搜索 <标签>")
             return
 
         # 验证标签格式 (借用 validate_and_process_tags 进行基本检查)
@@ -871,11 +883,11 @@ class PixivSearchPlugin(Star):
         success, message = add_random_tag(chat_id, session_id, cleaned_tags)
         yield event.plain_result(message)
 
-    @command("pixiv_random_del")
+    @command("pixiv删除随机搜索标签")
     async def pixiv_random_del(self, event: AstrMessageEvent, index: str = ""):
         """删除随机搜索标签"""
         if not index.isdigit():
-             yield event.plain_result("请输入要删除的标签序号 (数字)。可通过 /pixiv_random_list 查看。")
+             yield event.plain_result("请输入要删除的标签序号 (数字)。可通过 /pixiv列出随机搜索标签 查看。")
              return
 
         idx = int(index) - 1 # 转换为 0-indexed
@@ -884,7 +896,7 @@ class PixivSearchPlugin(Star):
         success, message = remove_random_tag(chat_id, idx)
         yield event.plain_result(message)
 
-    @command("pixiv_random_list")
+    @command("pixiv列出随机搜索标签")
     async def pixiv_random_list(self, event: AstrMessageEvent, args: str = ""):
         """列出当前群聊/用户的随机搜索标签"""
         chat_id = event.get_group_id() or event.get_sender_id()
@@ -900,7 +912,7 @@ class PixivSearchPlugin(Star):
         
         yield event.plain_result(msg)
 
-    @command("pixiv_random_suspend")
+    @command("pixiv暂停随机搜索")
     async def pixiv_random_suspend(self, event: AstrMessageEvent):
         """暂停当前群聊的随机搜索功能"""
         chat_id = event.get_group_id() or event.get_sender_id()
@@ -921,7 +933,7 @@ class PixivSearchPlugin(Star):
             self.random_search_service.suspend_group_search(chat_id)
         yield event.plain_result(message)
 
-    @command("pixiv_random_resume")
+    @command("pixiv恢复随机搜索")
     async def pixiv_random_resume(self, event: AstrMessageEvent):
         """恢复当前群聊的随机搜索功能"""
         chat_id = event.get_group_id() or event.get_sender_id()
@@ -942,7 +954,7 @@ class PixivSearchPlugin(Star):
             self.random_search_service.resume_group_search(chat_id)
         yield event.plain_result(message)
 
-    @command("pixiv_random_status")
+    @command("pixiv查看随机搜索队列状态")
     async def pixiv_random_status(self, event: AstrMessageEvent):
         """查看随机搜索队列状态"""
         status = self.random_search_service.get_queue_status()
@@ -1388,12 +1400,12 @@ class PixivSearchPlugin(Star):
             logger.error(traceback.format_exc())
             yield event.plain_result(f"获取小说评论时发生错误: {str(e)}")
 
-    @command("pixiv_novel_download")
+    @command("pixiv下载小说并加密")
     async def pixiv_novel_download(self, event: AstrMessageEvent, novel_id: str = ""):
         """根据ID下载Pixiv小说为pdf文件"""
         cleaned_id = novel_id.strip()
         if not cleaned_id or not cleaned_id.isdigit():
-            yield event.plain_result("请输入有效的小说ID。用法: /pixiv_novel_download <小说ID>")
+            yield event.plain_result("请输入有效的小说ID。用法: /pixiv下载小说并加密 <小说ID>")
             return
 
         if not await self._authenticate():
