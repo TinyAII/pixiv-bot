@@ -1,22 +1,38 @@
 {
-  "pixiv_help": "# Pixiv 搜索插件使用帮助\n\n## 基本命令\n- `/pixiv <标签1>,<标签2>,...` - 搜索含有任意指定标签的插画 (OR 搜索)\n- `/pixiv_help` - 显示此帮助信息\n\n## 排除标签\n- 使用 `-<标签>` 来排除特定标签。例如：`/pixiv 恋爱,-ntr`\n\n## 订阅功能\n- `/pixiv_subscribe_add <画师ID>` - 订阅画师\n- `/pixiv_subscribe_remove <画师ID>` - 取消订阅画师\n- `/pixiv_subscribe_list` - 查看当前订阅列表\n\n## 评论功能\n- `/pixiv_illust_comments <作品ID> [偏移量]` - 获取作品评论\n- `/pixiv_novel_comments <小说ID> [偏移量]` - 获取小说评论\n\n## 最新作品\n- `/pixiv_illust_new [类型] [最大作品ID]` - 获取大家的新插画作品\n- `/pixiv_novel_new [最大小说ID]` - 获取大家的新小说\n\n## 小说相关功能\n- `pixiv搜索小说 <标签1>,...` - 搜索小说\n- `/pixiv_novel_recommended` - 获取推荐小说\n- `/pixiv_novel_series <系列ID>` - 获取小说系列详情\n\n- `/pixiv下载小说并加密 <小说ID>` - 下载小说为 PDF 文件\n\n## 随机搜索功能\n- `/pixiv随机搜索 <标签>` - 添加随机搜索标签\n- `/pixiv删除随机搜索标签 <序号>` - 删除指定序号的随机搜索标签\n- `/pixiv列出随机搜索标签` - 查看当前群聊的随机搜索标签列表\n- `/pixiv暂停随机搜索` - 暂停当前群聊的随机搜索功能\n- `/pixiv恢复随机搜索` - 恢复当前群聊的随机搜索功能\n- `/pixiv查看随机搜索队列状态` - 查看随机搜索队列状态（调试用）\n- `/pixiv_random_force` - 强制执行当前群聊的随机搜索（调试用）\n\n## 特殊功能\n- `/pixiv_ai_show_settings <设置>` - 设置是否展示AI生成作品\n- `/pixiv_showcase_article <特辑ID>` - 获取特辑详情\n\n## 高级命令\n- `/pixiv推荐作品` - 获取推荐作品\n- `/pixiv_specific <作品ID>` - 获取指定作品详情（支持动图）\n- `pixiv搜索用户 <用户名>` - 搜索Pixiv用户\n- `/pixiv_user_detail <用户ID>` - 获取指定用户的详细信息\n- `/pixiv_user_illusts <用户ID>` - 获取指定用户的作品\n- `/pixiv_ranking [mode] [date]` - 获取排行榜作品\n- `/pixiv_related <作品ID>` - 获取与指定作品相关的其他作品\n- `/pixiv_trending_tags` - 获取当前的插画趋势标签\n- `pixiv深度搜索 <标签1>,<标签2>,...` - 深度搜索插画 (OR 搜索，跨多页)
+  "pixiv_help": "# Pixiv 搜索插件使用帮助\n\n## 基本命令\n- `/pixiv <标签1>,<标签2>,...` - 搜索含有任意指定标签的插画 (OR 搜索)\n- `/pixiv_help` - 显示此帮助信息\n\n## 排除标签\n- 使用 `-<标签>` 来排除特定标签。例如：`/pixiv 恋爱,-ntr`\n\n## 订阅功能\n- `/pixiv订阅画师 <画师ID>` - 订阅画师
+- `/pixiv_subscribe_add <画师ID>` - 订阅画师（旧命令兼容）\n- `/pixiv取消订阅画师 <画师ID>` - 取消订阅画师
+- `/pixiv_subscribe_remove <画师ID>` - 取消订阅画师（旧命令兼容）\n- `/pixiv查看当前订阅列表` - 查看当前订阅列表
+- `/pixiv_subscribe_list` - 查看当前订阅列表（旧命令兼容）\n\n## 评论功能\n- `/pixiv获取作品评论 <作品ID> [偏移量]` - 获取作品评论
+- `/pixiv_illust_comments <作品ID> [偏移量]` - 获取作品评论（旧命令兼容）\n- `/pixiv获取小说评论 <小说ID> [偏移量]` - 获取小说评论
+- `/pixiv_novel_comments <小说ID> [偏移量]` - 获取小说评论（旧命令兼容）\n\n## 最新作品\n- `/pixiv获取大家的新插画作品 [类型] [最大作品ID]` - 获取大家的新插画作品
+- `/pixiv_illust_new [类型] [最大作品ID]` - 获取大家的新插画作品（旧命令兼容）\n- `/pixiv获取大家的新小说 [最大小说ID]` - 获取大家的新小说
+- `/pixiv_novel_new [最大小说ID]` - 获取大家的新小说（旧命令兼容）\n\n## 小说相关功能\n- `pixiv搜索小说 <标签1>,...` - 搜索小说\n- `/pixiv获取推荐小说` - 获取推荐小说
+- `/pixiv_novel_recommended` - 获取推荐小说（旧命令兼容）\n- `/pixiv小说系列详情 <系列ID>` - 获取小说系列详情
+- `/pixiv_novel_series <系列ID>` - 获取小说系列详情（旧命令兼容）\n\n- `/pixiv下载小说并加密 <小说ID>` - 下载小说为 PDF 文件\n\n## 随机搜索功能\n- `/pixiv随机搜索 <标签>` - 添加随机搜索标签\n- `/pixiv删除随机搜索标签 <序号>` - 删除指定序号的随机搜索标签\n- `/pixiv列出随机搜索标签` - 查看当前群聊的随机搜索标签列表\n- `/pixiv暂停随机搜索` - 暂停当前群聊的随机搜索功能\n- `/pixiv恢复随机搜索` - 恢复当前群聊的随机搜索功能\n- `/pixiv查看随机搜索队列状态` - 查看随机搜索队列状态（调试用）\n- `/pixiv_random_force` - 强制执行当前群聊的随机搜索（调试用）\n\n## 特殊功能\n- `/pixiv是否展示AI作品 <设置>` - 设置是否展示AI生成作品
+- `/pixiv_ai_show_settings <设置>` - 设置是否展示AI生成作品（旧命令兼容）\n- `/pixiv特辑详情 <特辑ID>` - 获取特辑详情
+- `/pixiv_showcase_article <特辑ID>` - 获取特辑详情（旧命令兼容）\n\n## 高级命令\n- `/pixiv推荐作品` - 获取推荐作品\n- `/pixiv指定作品详情 <作品ID>` - 获取指定作品详情（支持动图）
+- `/pixiv_specific <作品ID>` - 获取指定作品详情（支持动图，旧命令兼容）\n- `pixiv搜索用户 <用户名>` - 搜索Pixiv用户\n- `/pixiv用户详细 <用户ID>` - 获取指定用户的详细信息
+- `/pixiv_user_detail <用户ID>` - 获取指定用户的详细信息（旧命令兼容）\n- `/pixiv_user_illusts <用户ID>` - 获取指定用户的作品\n- `/pixiv排行榜作品 [mode] [date]` - 获取排行榜作品
+- `/pixiv_ranking [mode] [date]` - 获取排行榜作品（旧命令兼容）\n- `/pixiv相关作品推荐 <作品ID>` - 获取与指定作品相关的其他作品
+- `/pixiv_related <作品ID>` - 获取与指定作品相关的其他作品（旧命令兼容）\n- `/pixiv趋势标签` - 获取当前的插画趋势标签
+- `/pixiv_trending_tags` - 获取当前的插画趋势标签（旧命令兼容）\n- `pixiv深度搜索 <标签1>,<标签2>,...` - 深度搜索插画 (OR 搜索，跨多页)
 - `pixiv搜索所有标签 <标签1>,<标签2>,...` - 深度搜索同时包含所有指定标签的插画 (AND 搜索，跨多页)\n\n## 注意事项
 - OR 搜索 (如 /pixiv, pixiv深度搜索) 使用英文逗号(,)分隔标签
 - AND 搜索 (pixiv搜索所有标签) 使用英文逗号(,)分隔标签\n- 获取用户作品或相关作品时，ID必须为数字\n- 日期必须采用 YYYY-MM-DD 格式\n- 带脑子配置代理->[Astrbot代理配置教程](https://astrbot.app/config/astrbot-config.html#http-proxy)\n- 填入refresh_token->**Pixiv Refresh Token**: 必填，用于 API 认证。获取方法请参考 [pixivpy3 文档](https://pypi.org/project/pixivpy3/) 或[这里](https://gist.github.com/karakoo/5e7e0b1f3cc74cbcb7fce1c778d3709e)。\n- 使用 `/命令` 或 `/命令 help` 可获取每个命令的详细说明\n- 仔细看[README.md](https://github.com/vmoranv-reborn/astrbot_plugin_pixiv_search/blob/master/README.md)",
-  "pixiv_ranking": "# Pixiv 排行榜查询\n\n## 命令格式\n`/pixiv_ranking [mode] [date]`\n\n## 参数说明\n- `mode`: 排行榜模式，可选值：\n  - 常规模式: day, week, month, day_male, day_female, week_original, week_rookie, day_manga\n  - R18模式(需开启R18): day_r18, day_male_r18, day_female_r18, week_r18, week_r18g\n- `date`: 日期，格式为 YYYY-MM-DD，可选，默认为最新\n\n## 示例\n- `/pixiv_ranking week` - 获取每周排行榜\n- `/pixiv_ranking day 2023-05-01` - 获取2023年5月1日的每日排行榜\n- `/pixiv_ranking day_r18` - 获取R18每日排行榜（需开启R18模式）",
-  "pixiv_related": "# Pixiv 相关作品\n\n## 命令格式\n`/pixiv_related <作品ID>`\n\n## 参数说明\n- `作品ID`: Pixiv 作品的数字ID\n\n## 示例\n- `/pixiv_related 12345678` - 获取ID为12345678的作品的相关作品",
+  "pixiv_ranking": "# Pixiv 排行榜查询\n\n## 命令格式\n`/pixiv排行榜作品 [mode] [date]`\n`/pixiv_ranking [mode] [date]`\n\n## 参数说明\n- `mode`: 排行榜模式，可选值：\n  - 常规模式: day, week, month, day_male, day_female, week_original, week_rookie, day_manga\n  - R18模式(需开启R18): day_r18, day_male_r18, day_female_r18, week_r18, week_r18g\n- `date`: 日期，格式为 YYYY-MM-DD，可选，默认为最新\n\n## 示例\n- `/pixiv排行榜作品 week` - 获取每周排行榜\n- `/pixiv排行榜作品 day 2023-05-01` - 获取2023年5月1日的每日排行榜\n- `/pixiv排行榜作品 day_r18` - 获取R18每日排行榜（需开启R18模式）\n- `/pixiv_ranking week` - 获取每周排行榜\n- `/pixiv_ranking day 2023-05-01` - 获取2023年5月1日的每日排行榜\n- `/pixiv_ranking day_r18` - 获取R18每日排行榜（需开启R18模式）",\n  "pixiv排行榜作品": "# Pixiv 排行榜查询\n\n## 命令格式\n`/pixiv排行榜作品 [mode] [date]`\n\n## 参数说明\n- `mode`: 排行榜模式，可选值：\n  - 常规模式: day, week, month, day_male, day_female, week_original, week_rookie, day_manga\n  - R18模式(需开启R18): day_r18, day_male_r18, day_female_r18, week_r18, week_r18g\n- `date`: 日期，格式为 YYYY-MM-DD，可选，默认为最新\n\n## 示例\n- `/pixiv排行榜作品 week` - 获取每周排行榜\n- `/pixiv排行榜作品 day 2023-05-01` - 获取2023年5月1日的每日排行榜\n- `/pixiv排行榜作品 day_r18` - 获取R18每日排行榜（需开启R18模式）",
+  "pixiv_related": "# Pixiv 相关作品推荐\n\n## 命令格式\n`/pixiv相关作品推荐 <作品ID>`\n`/pixiv_related <作品ID>`\n\n## 参数说明\n- `作品ID`: Pixiv 作品的数字ID\n\n## 示例\n- `/pixiv相关作品推荐 12345678` - 获取ID为12345678的作品的相关作品\n- `/pixiv_related 12345678` - 获取ID为12345678的作品的相关作品（旧命令兼容）",\n  "pixiv相关作品推荐": "# Pixiv 相关作品推荐\n\n## 命令格式\n`/pixiv相关作品推荐 <作品ID>`\n\n## 参数说明\n- `作品ID`: Pixiv 作品的数字ID\n\n## 示例\n- `/pixiv相关作品推荐 12345678` - 获取ID为12345678的作品的相关作品",
   "pixiv_user_search": "# Pixiv 用户搜索\n\n## 命令格式\n`pixiv搜索用户 <用户名>`\n\n## 参数说明\n- `用户名`: 要搜索的 Pixiv 用户名\n\n## 示例\n- `pixiv搜索用户 初音ミク` - 搜索名称包含\"初音ミク\"的用户\n- `pixiv搜索用户 gomzi` - 搜索名称包含\"gomzi\"的用户",
-  "pixiv_user_detail": "# Pixiv 用户详情\n\n## 命令格式\n`/pixiv_user_detail <用户ID>`\n\n## 参数说明\n- `用户ID`: Pixiv 用户的数字ID\n\n## 示例\n- `/pixiv_user_detail 660788` - 获取ID为660788的用户详情",
+  "pixiv_user_detail": "# Pixiv 用户详细\n\n## 命令格式\n`/pixiv用户详细 <用户ID>`\n`/pixiv_user_detail <用户ID>`\n\n## 参数说明\n- `用户ID`: Pixiv 用户的数字ID\n\n## 示例\n- `/pixiv用户详细 660788` - 获取ID为660788的用户详细信息\n- `/pixiv_user_detail 660788` - 获取ID为660788的用户详细信息（旧命令兼容）",\n  "pixiv用户详细": "# Pixiv 用户详细\n\n## 命令格式\n`/pixiv用户详细 <用户ID>`\n\n## 参数说明\n- `用户ID`: Pixiv 用户的数字ID\n\n## 示例\n- `/pixiv用户详细 660788` - 获取ID为660788的用户详细信息",
   "pixiv_user_illusts": "# Pixiv 用户作品\n\n## 命令格式\n`/pixiv_user_illusts <用户ID>`\n\n## 参数说明\n- `用户ID`: Pixiv 用户的数字ID\n\n## 示例\n- `/pixiv_user_illusts 660788` - 获取ID为660788的用户的作品",
   "pixiv_novel": "# Pixiv 小说搜索\n- **命令格式**: `pixiv搜索小说 <标签1>,<标签2>,...`\n- **参数说明**:\n  - `标签`: 搜索的标签，多个标签用英文逗号分隔\n  - 支持排除标签功能，使用 `-<标签>` 来排除特定标签\n- **示例**:\n  - `pixiv搜索小说 恋愛` - 搜索标签为\"恋愛\"的小说\n  - `pixiv搜索小说 恋愛,-NTR` - 搜索包含\"恋愛\"但排除\"NTR\"的小说",
-  "pixiv_illust_comments": "# Pixiv 作品评论\n\n## 命令格式\n`/pixiv_illust_comments <作品ID> [偏移量]`\n\n## 参数说明\n- `作品ID`: Pixiv 作品的数字ID\n- `偏移量`: 可选，从第几条评论开始获取，默认为0\n\n## 示例\n- `/pixiv_illust_comments 12345678` - 获取作品ID为12345678的前10条评论\n- `/pixiv_illust_comments 12345678 10` - 从第10条评论开始获取",
-  "pixiv_novel_comments": "# Pixiv 小说评论\n\n## 命令格式\n`/pixiv_novel_comments <小说ID> [偏移量]`\n\n## 参数说明\n- `小说ID`: Pixiv 小说的数字ID\n- `偏移量`: 可选，从第几条评论开始获取，默认为0\n\n## 示例\n- `/pixiv_novel_comments 12345678` - 获取小说ID为12345678的前10条评论\n- `/pixiv_novel_comments 12345678 10` - 从第10条评论开始获取",
-  "pixiv_illust_new": "# Pixiv 新插画作品\n\n## 命令格式\n`/pixiv_illust_new [类型] [最大作品ID]`\n\n## 参数说明\n- `类型`: 可选，作品类型，默认为illust\n  - illust: 插画\n  - manga: 漫画\n- `最大作品ID`: 可选，获取小于此ID的作品，默认为最新\n\n## 示例\n- `/pixiv_illust_new` - 获取最新的插画作品\n- `/pixiv_illust_new manga` - 获取最新的漫画作品\n- `/pixiv_illust_new illust 12345678` - 获取ID小于12345678的插画作品",
-  "pixiv_novel_new": "# Pixiv 新小说\n\n## 命令格式\n`/pixiv_novel_new [最大小说ID]`\n\n## 参数说明\n- `最大小说ID`: 可选，获取小于此ID的小说，默认为最新\n\n## 示例\n- `/pixiv_novel_new` - 获取最新的小说\n- `/pixiv_novel_new 12345678` - 获取ID小于12345678的小说",
-  "pixiv_novel_recommended": "# Pixiv 推荐小说\n\n## 命令格式\n`/pixiv_novel_recommended`\n\n## 功能说明\n获取Pixiv推荐的小说作品，基于您的浏览历史和偏好。\n\n## 示例\n- `/pixiv_novel_recommended` - 获取推荐小说",
-  "pixiv_novel_series": "# Pixiv 小说系列详情\n\n## 命令格式\n`/pixiv_novel_series <系列ID>`\n\n## 参数说明\n- `系列ID`: Pixiv 小说系列的数字ID\n\n## 示例\n- `/pixiv_novel_series 12345678` - 获取系列ID为12345678的详情和作品列表",
-  "pixiv_ai_show_settings": "# Pixiv AI作品设置\n\n## 命令格式\n`/pixiv_ai_show_settings <设置>`\n\n## 参数说明\n- `设置`: 是否显示AI生成作品\n  - true, 1, yes, on: 显示AI作品\n  - false, 0, no, off: 过滤AI作品\n\n## 功能说明\n设置是否在搜索结果中显示AI生成的作品，同时会同步更新本地配置。\n\n## 示例\n- `/pixiv_ai_show_settings true` - 设置显示AI作品\n- `/pixiv_ai_show_settings false` - 设置过滤AI作品",
-  "pixiv_showcase_article": "# Pixiv 特辑详情\n\n## 命令格式\n`/pixiv_showcase_article <特辑ID>`\n\n## 参数说明\n- `特辑ID`: Pixiv 特辑的数字ID\n\n## 功能说明\n获取Pixiv特辑的详细信息，包括描述和包含的作品列表。\n\n## 示例\n- `/pixiv_showcase_article 12345678` - 获取特辑ID为12345678的详情",
+  "pixiv_illust_comments": "# Pixiv 作品评论\n\n## 命令格式\n`/pixiv获取作品评论 <作品ID> [偏移量]`\n`/pixiv_illust_comments <作品ID> [偏移量]`\n\n## 参数说明\n- `作品ID`: Pixiv 作品的数字ID\n- `偏移量`: 可选，从第几条评论开始获取，默认为0\n\n## 示例\n- `/pixiv获取作品评论 12345678` - 获取作品ID为12345678的前10条评论\n- `/pixiv获取作品评论 12345678 10` - 从第10条评论开始获取\n- `/pixiv_illust_comments 12345678` - 获取作品ID为12345678的前10条评论（旧命令兼容）\n- `/pixiv_illust_comments 12345678 10` - 从第10条评论开始获取（旧命令兼容）",\n  "pixiv获取作品评论": "# Pixiv 作品评论\n\n## 命令格式\n`/pixiv获取作品评论 <作品ID> [偏移量]`\n\n## 参数说明\n- `作品ID`: Pixiv 作品的数字ID\n- `偏移量`: 可选，从第几条评论开始获取，默认为0\n\n## 示例\n- `/pixiv获取作品评论 12345678` - 获取作品ID为12345678的前10条评论\n- `/pixiv获取作品评论 12345678 10` - 从第10条评论开始获取",
+  "pixiv_novel_comments": "# Pixiv 小说评论\n\n## 命令格式\n`/pixiv获取小说评论 <小说ID> [偏移量]`\n`/pixiv_novel_comments <小说ID> [偏移量]`\n\n## 参数说明\n- `小说ID`: Pixiv 小说的数字ID\n- `偏移量`: 可选，从第几条评论开始获取，默认为0\n\n## 示例\n- `/pixiv获取小说评论 12345678` - 获取小说ID为12345678的前10条评论\n- `/pixiv获取小说评论 12345678 10` - 从第10条评论开始获取\n- `/pixiv_novel_comments 12345678` - 获取小说ID为12345678的前10条评论（旧命令兼容）\n- `/pixiv_novel_comments 12345678 10` - 从第10条评论开始获取（旧命令兼容）",\n  "pixiv获取小说评论": "# Pixiv 小说评论\n\n## 命令格式\n`/pixiv获取小说评论 <小说ID> [偏移量]`\n\n## 参数说明\n- `小说ID`: Pixiv 小说的数字ID\n- `偏移量`: 可选，从第几条评论开始获取，默认为0\n\n## 示例\n- `/pixiv获取小说评论 12345678` - 获取小说ID为12345678的前10条评论\n- `/pixiv获取小说评论 12345678 10` - 从第10条评论开始获取",
+  "pixiv_illust_new": "# Pixiv 新插画作品\n\n## 命令格式\n`/pixiv获取大家的新插画作品 [类型] [最大作品ID]`\n`/pixiv_illust_new [类型] [最大作品ID]`\n\n## 参数说明\n- `类型`: 可选，作品类型，默认为illust\n  - illust: 插画\n  - manga: 漫画\n- `最大作品ID`: 可选，获取小于此ID的作品，默认为最新\n\n## 示例\n- `/pixiv获取大家的新插画作品` - 获取最新的插画作品\n- `/pixiv获取大家的新插画作品 manga` - 获取最新的漫画作品\n- `/pixiv获取大家的新插画作品 illust 12345678` - 获取ID小于12345678的插画作品\n- `/pixiv_illust_new` - 获取最新的插画作品（旧命令兼容）\n- `/pixiv_illust_new manga` - 获取最新的漫画作品（旧命令兼容）\n- `/pixiv_illust_new illust 12345678` - 获取ID小于12345678的插画作品（旧命令兼容）",\n  "pixiv获取大家的新插画作品": "# Pixiv 新插画作品\n\n## 命令格式\n`/pixiv获取大家的新插画作品 [类型] [最大作品ID]`\n\n## 参数说明\n- `类型`: 可选，作品类型，默认为illust\n  - illust: 插画\n  - manga: 漫画\n- `最大作品ID`: 可选，获取小于此ID的作品，默认为最新\n\n## 示例\n- `/pixiv获取大家的新插画作品` - 获取最新的插画作品\n- `/pixiv获取大家的新插画作品 manga` - 获取最新的漫画作品\n- `/pixiv获取大家的新插画作品 illust 12345678` - 获取ID小于12345678的插画作品",
+  "pixiv_novel_new": "# Pixiv 新小说\n\n## 命令格式\n`/pixiv获取大家的新小说 [最大小说ID]`\n`/pixiv_novel_new [最大小说ID]`\n\n## 参数说明\n- `最大小说ID`: 可选，获取小于此ID的小说，默认为最新\n\n## 示例\n- `/pixiv获取大家的新小说` - 获取最新的小说\n- `/pixiv获取大家的新小说 12345678` - 获取ID小于12345678的小说\n- `/pixiv_novel_new` - 获取最新的小说（旧命令兼容）\n- `/pixiv_novel_new 12345678` - 获取ID小于12345678的小说（旧命令兼容）",\n  "pixiv获取大家的新小说": "# Pixiv 新小说\n\n## 命令格式\n`/pixiv获取大家的新小说 [最大小说ID]`\n\n## 参数说明\n- `最大小说ID`: 可选，获取小于此ID的小说，默认为最新\n\n## 示例\n- `/pixiv获取大家的新小说` - 获取最新的小说\n- `/pixiv获取大家的新小说 12345678` - 获取ID小于12345678的小说",
+  "pixiv_novel_recommended": "# Pixiv 推荐小说\n\n## 命令格式\n`/pixiv获取推荐小说`\n`/pixiv_novel_recommended`\n\n## 功能说明\n获取Pixiv推荐的小说作品，基于您的浏览历史和偏好。\n\n## 示例\n- `/pixiv获取推荐小说` - 获取推荐小说\n- `/pixiv_novel_recommended` - 获取推荐小说（旧命令兼容）",\n  "pixiv获取推荐小说": "# Pixiv 推荐小说\n\n## 命令格式\n`/pixiv获取推荐小说`\n\n## 功能说明\n获取Pixiv推荐的小说作品，基于您的浏览历史和偏好。\n\n## 示例\n- `/pixiv获取推荐小说` - 获取推荐小说",
+  "pixiv_novel_series": "# Pixiv 小说系列详情\n\n## 命令格式\n`/pixiv小说系列详情 <系列ID>`\n`/pixiv_novel_series <系列ID>`\n\n## 参数说明\n- `系列ID`: Pixiv 小说系列的数字ID\n\n## 示例\n- `/pixiv小说系列详情 12345678` - 获取系列ID为12345678的详情和作品列表\n- `/pixiv_novel_series 12345678` - 获取系列ID为12345678的详情和作品列表（旧命令兼容）",\n  "pixiv小说系列详情": "# Pixiv 小说系列详情\n\n## 命令格式\n`/pixiv小说系列详情 <系列ID>`\n\n## 参数说明\n- `系列ID`: Pixiv 小说系列的数字ID\n\n## 示例\n- `/pixiv小说系列详情 12345678` - 获取系列ID为12345678的详情和作品列表",
+  "pixiv_ai_show_settings": "# Pixiv 是否展示AI作品\n\n## 命令格式\n`/pixiv是否展示AI作品 <设置>`\n`/pixiv_ai_show_settings <设置>`\n\n## 参数说明\n- `设置`: 是否显示AI生成作品\n  - true, 1, yes, on: 显示AI作品\n  - false, 0, no, off: 过滤AI作品\n\n## 功能说明\n设置是否在搜索结果中显示AI生成的作品，同时会同步更新本地配置。\n\n## 示例\n- `/pixiv是否展示AI作品 true` - 设置显示AI作品\n- `/pixiv是否展示AI作品 false` - 设置过滤AI作品\n- `/pixiv_ai_show_settings true` - 设置显示AI作品（旧命令兼容）\n- `/pixiv_ai_show_settings false` - 设置过滤AI作品（旧命令兼容）",\n  "pixiv是否展示AI作品": "# Pixiv 是否展示AI作品\n\n## 命令格式\n`/pixiv是否展示AI作品 <设置>`\n\n## 参数说明\n- `设置`: 是否显示AI生成作品\n  - true, 1, yes, on: 显示AI作品\n  - false, 0, no, off: 过滤AI作品\n\n## 功能说明\n设置是否在搜索结果中显示AI生成的作品，同时会同步更新本地配置。\n\n## 示例\n- `/pixiv是否展示AI作品 true` - 设置显示AI作品\n- `/pixiv是否展示AI作品 false` - 设置过滤AI作品",
+  "pixiv_showcase_article": "# Pixiv 特辑详情\n\n## 命令格式\n`/pixiv特辑详情 <特辑ID>`\n`/pixiv_showcase_article <特辑ID>`\n\n## 参数说明\n- `特辑ID`: Pixiv 特辑的数字ID\n\n## 功能说明\n获取Pixiv特辑的详细信息，包括描述和包含的作品列表。\n\n## 示例\n- `/pixiv特辑详情 12345678` - 获取特辑ID为12345678的详情\n- `/pixiv_showcase_article 12345678` - 获取特辑ID为12345678的详情（旧命令兼容）",\n  "pixiv特辑详情": "# Pixiv 特辑详情\n\n## 命令格式\n`/pixiv特辑详情 <特辑ID>`\n\n## 参数说明\n- `特辑ID`: Pixiv 特辑的数字ID\n\n## 功能说明\n获取Pixiv特辑的详细信息，包括描述和包含的作品列表。\n\n## 示例\n- `/pixiv特辑详情 12345678` - 获取特辑ID为12345678的详情",
   "pixiv_config": "# Pixiv 配置命令帮助\n\n## 命令格式\n/pixiv_config show\n/pixiv_config <参数名>\n/pixiv_config <参数名> <值>\n/pixiv_config help\n\n## 支持参数\n- r18_mode: 过滤_R18, 允许_R18, 仅_R18\n- ai_filter_mode: 显示_AI_作品, 过滤_AI_作品, 仅_AI_作品\n- return_count: 1-10\n- show_filter_result: true|false\n- deep_search_depth: -1|0-50\n- show_details: true|false\n- forward_threshold: true|false\n- image_quality: original,large,medium\n- subscription_enabled: true|false\n- random_search_min_interval: 1-1440 (分钟)\n- random_search_max_interval: 1-1440 (分钟)\n\n## 示例\n- /pixiv_config show\n- /pixiv_config r18_mode 仅_R18\n- /pixiv_config show_filter_result false\n- /pixiv_config forward_threshold true\n- /pixiv_config random_search_min_interval 30\n- /pixiv_config random_search_max_interval 180",
   "pixiv推荐作品": "# Pixiv 推荐作品
 
@@ -27,5 +43,55 @@
 获取Pixiv推荐的插画作品，基于您的浏览历史和偏好。
 
 ## 示例
-- `/pixiv推荐作品` - 获取推荐作品"
+- `/pixiv推荐作品` - 获取推荐作品",
+  "pixiv_trending_tags": "# Pixiv 趋势标签
+
+## 命令格式
+`/pixiv趋势标签`
+`/pixiv_trending_tags`
+
+## 功能说明
+获取当前Pixiv上流行的插画趋势标签，帮助您发现热门内容。
+
+## 示例
+- `/pixiv趋势标签` - 获取趋势标签
+- `/pixiv_trending_tags` - 获取趋势标签（旧命令兼容）",
+  "pixiv趋势标签": "# Pixiv 趋势标签
+
+## 命令格式
+`/pixiv趋势标签`
+
+## 功能说明
+获取当前Pixiv上流行的插画趋势标签，帮助您发现热门内容。
+
+## 示例
+- `/pixiv趋势标签` - 获取趋势标签",
+  "pixiv_specific": "# Pixiv 指定作品详情
+
+## 命令格式
+`/pixiv指定作品详情 <作品ID>`
+`/pixiv_specific <作品ID>`
+
+## 参数说明
+- `作品ID`: Pixiv 作品的数字ID
+
+## 功能说明
+获取指定ID的Pixiv作品详情，支持动图（ugoira）自动转换为GIF格式。
+
+## 示例
+- `/pixiv指定作品详情 12345678` - 获取ID为12345678的作品详情
+- `/pixiv_specific 12345678` - 获取ID为12345678的作品详情（旧命令兼容）",
+  "pixiv指定作品详情": "# Pixiv 指定作品详情
+
+## 命令格式
+`/pixiv指定作品详情 <作品ID>`
+
+## 参数说明
+- `作品ID`: Pixiv 作品的数字ID
+
+## 功能说明
+获取指定ID的Pixiv作品详情，支持动图（ugoira）自动转换为GIF格式。
+
+## 示例
+- `/pixiv指定作品详情 12345678` - 获取ID为12345678的作品详情"
 }

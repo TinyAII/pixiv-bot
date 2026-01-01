@@ -42,30 +42,33 @@
 
 ### 内容获取
 - `/pixiv推荐作品` - 获取推荐作品
-- `/pixiv_ranking [模式] [日期]` - 排行榜作品
-- `/pixiv_trending_tags` - 获取趋势标签
-- `/pixiv_illust_new [类型] [最大作品ID]` - 获取大家的新插画作品
-- `/pixiv_novel_new [最大小说ID]` - 获取大家的新小说
-- `/pixiv_novel_recommended` - 获取推荐小说
+- `/pixiv排行榜作品 [模式] [日期]` - 排行榜作品
+- `/pixiv趋势标签` - 获取趋势标签
+- `/pixiv获取大家的新插画作品 [类型] [最大作品ID]` - 获取大家的新插画作品
+- `/pixiv获取大家的新小说 [最大小说ID]` - 获取大家的新小说
+- `/pixiv获取推荐小说` - 获取推荐小说
 
 ### 详情查询
-- `/pixiv_specific <作品ID>` - 指定作品详情（支持动图）
-- `/pixiv_user_detail <用户ID>` - 用户详细信息
-- `/pixiv_related <作品ID>` - 相关作品推荐
-- `/pixiv_novel_series <系列ID>` - 小说系列详情
-- `/pixiv_showcase_article <特辑ID>` - 特辑详情
+- `/pixiv指定作品详情 <作品ID>` - 指定作品详情（支持动图）
+- `/pixiv用户详细 <用户ID>` - 用户详细信息
+- `/pixiv相关作品推荐 <作品ID>` - 相关作品推荐
+- `/pixiv小说系列详情 <系列ID>` - 小说系列详情
+- `/pixiv特辑详情 <特辑ID>` - 特辑详情
 
 ### 评论功能
-- `/pixiv_illust_comments <作品ID> [偏移量]` - 获取作品评论
-- `/pixiv_novel_comments <小说ID> [偏移量]` - 获取小说评论
+- `/pixiv获取作品评论 <作品ID> [偏移量]` - 获取作品评论
+- `/pixiv获取小说评论 <小说ID> [偏移量]` - 获取小说评论
 
 ### 特殊功能
-- `/pixiv_ai_show_settings <设置>` - 设置是否展示AI生成作品
+- `/pixiv是否展示AI作品 <设置>` - 设置是否展示AI生成作品
 
 ### 订阅功能
-- `/pixiv_subscribe_add <画师ID>` - 订阅画师
-- `/pixiv_subscribe_remove <画师ID>` - 取消订阅画师
-- `/pixiv_subscribe_list` - 查看当前订阅列表
+- `/pixiv订阅画师 <画师ID>` - 订阅画师
+- `/pixiv_subscribe_add <画师ID>` - 订阅画师（旧命令兼容）
+- `/pixiv取消订阅画师 <画师ID>` - 取消订阅画师
+- `/pixiv_subscribe_remove <画师ID>` - 取消订阅画师（旧命令兼容）
+- `/pixiv查看当前订阅列表` - 查看当前订阅列表
+- `/pixiv_subscribe_list` - 查看当前订阅列表（旧命令兼容）
 
 ## 🚀 快速开始
 
@@ -111,38 +114,38 @@ pixiv搜索所有标签 初音ミク,可爱
 
 # 获取推荐和排行榜
 /pixiv推荐作品
-/pixiv_ranking daily
+/pixiv排行榜作品 daily
 
 # 获取最新作品
-/pixiv_illust_new
-/pixiv_novel_new
+/pixiv获取大家的新插画作品
+/pixiv获取大家的新小说
 
 # 小说相关
 pixiv搜索小说 恋愛
-/pixiv_novel_recommended
-/pixiv_novel_series 123456
+/pixiv获取推荐小说
+/pixiv小说系列详情 123456
 
 # 评论功能
-/pixiv_illust_comments 12345678
-/pixiv_novel_comments 12345678
+/pixiv获取作品评论 12345678
+/pixiv获取小说评论 12345678
 
 # 特殊功能
-/pixiv_ai_show_settings true
+/pixiv是否展示AI作品 true
 
 # 用户相关
 pixiv搜索用户 某个画师名
-/pixiv_user_detail 123456
+/pixiv用户详细 123456
 
 # 特辑功能
-/pixiv_showcase_article 123456
+/pixiv特辑详情 123456
 
 # 获取帮助
 /pixiv_help
 
 # 订阅功能
-/pixiv_subscribe_add 123456
-/pixiv_subscribe_remove 123456
-/pixiv_subscribe_list
+/pixiv订阅画师 123456
+/pixiv取消订阅画师 123456
+/pixiv查看当前订阅列表
 
 # 随机搜索功能
 /pixiv随机搜索 风景

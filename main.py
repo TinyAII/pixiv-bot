@@ -222,7 +222,7 @@ class PixivSearchPlugin(Star):
             logger.error(f"Pixiv 插件：搜索插画时发生错误 - {e}")
             yield event.plain_result(f"搜索插画时发生错误: {str(e)}")
 
-    @command("pixiv_subscribe_add")
+    @command("pixiv订阅画师")
     async def pixiv_subscribe_add(self, event: AstrMessageEvent, artist_id: str = ""):
         """订阅画师"""
         if not self.pixiv_config.subscription_enabled:
@@ -271,7 +271,7 @@ class PixivSearchPlugin(Star):
                                             target_name,
                                             latest_illust_id)
         yield event.plain_result(message)
-    @command("pixiv_subscribe_remove")
+    @command("pixiv取消订阅画师")
     async def pixiv_subscribe_remove(self, event: AstrMessageEvent, artist_id: str = ""):
         """取消订阅画师"""
         if not self.pixiv_config.subscription_enabled:
@@ -288,7 +288,7 @@ class PixivSearchPlugin(Star):
         success, message = remove_subscription(chat_id, sub_type, artist_id)
         yield event.plain_result(message)
 
-    @command("pixiv_subscribe_list")
+    @command("pixiv查看当前订阅列表")
     async def pixiv_subscribe_list(self, event: AstrMessageEvent, args: str = ""):
         """查看当前订阅列表"""
         if not self.pixiv_config.subscription_enabled:
@@ -364,7 +364,7 @@ class PixivSearchPlugin(Star):
             logger.error(f"Pixiv 插件：获取推荐作品时发生错误 - {e}")
             yield event.plain_result(f"获取推荐作品时发生错误: {str(e)}")
 
-    @command("pixiv_ranking")
+    @command("pixiv排行榜作品")
     async def pixiv_ranking(self, event: AstrMessageEvent, args: str = ""):
         """获取 Pixiv 排行榜作品"""
         args_list = args.strip().split() if args.strip() else []
@@ -398,7 +398,7 @@ class PixivSearchPlugin(Star):
 
         if mode not in valid_modes:
             yield event.plain_result(
-                f"无效的排行榜模式: {mode}\n请使用 `/pixiv_ranking help` 查看支持的模式"
+                f"无效的排行榜模式: {mode}\n请使用 `/pixiv排行榜作品 help` 查看支持的模式"
             )
             return
 
@@ -469,7 +469,7 @@ class PixivSearchPlugin(Star):
             logger.error(f"Pixiv 插件：获取排行榜时发生错误 - {e}")
             yield event.plain_result(f"获取排行榜时发生错误: {str(e)}")
 
-    @command("pixiv_related")
+    @command("pixiv相关作品推荐")
     async def pixiv_related(self, event: AstrMessageEvent, illust_id: str = ""):
         """获取与指定作品相关的其他作品"""
         # 检查参数是否为空或为 help
@@ -606,7 +606,7 @@ class PixivSearchPlugin(Star):
             logger.error(f"Pixiv 插件：搜索用户时发生错误 - {e}")
             yield event.plain_result(f"搜索用户时发生错误: {str(e)}")
 
-    @command("pixiv_user_detail")
+    @command("pixiv用户详细")
     async def pixiv_user_detail(self, event: AstrMessageEvent, user_id: str = ""):
         """获取 Pixiv 用户详情"""
         # 检查参数是否为空或为 help
@@ -810,7 +810,7 @@ class PixivSearchPlugin(Star):
             logger.error(f"Pixiv 插件：搜索小说时发生错误 - {e}")
             yield event.plain_result(f"搜索小说时发生错误: {str(e)}")
 
-    @command("pixiv_novel_recommended")
+    @command("pixiv获取推荐小说")
     async def pixiv_novel_recommended(self, event: AstrMessageEvent):
         """获取 Pixiv 推荐小说"""
         logger.info("Pixiv 插件：正在获取推荐小说")
@@ -988,7 +988,7 @@ class PixivSearchPlugin(Star):
         else:
             yield event.plain_result("强制执行失败，群组可能正在执行中。")
 
-    @command("pixiv_novel_series")
+    @command("pixiv小说系列详情")
     async def pixiv_novel_series(self, event: AstrMessageEvent, series_id: str = ""):
         """获取小说系列详情"""
         # 检查是否提供了系列 ID
@@ -1074,7 +1074,7 @@ class PixivSearchPlugin(Star):
         # 返回 PDF 内容的字节
         return pdf.output(dest='S')
 
-    @command("pixiv_illust_comments")
+    @command("pixiv获取作品评论")
     async def pixiv_illust_comments(self, event: AstrMessageEvent, illust_id: str = "", offset: str = ""):
         """获取指定作品的评论"""
         # 检查是否提供了作品 ID
@@ -1227,7 +1227,7 @@ class PixivSearchPlugin(Star):
             # 如果评论数量超过显示限制，提示用户
             if len(comments) > max_comments:
                 next_offset = (int(offset) if offset else 0) + max_comments
-                comment_info += f"\n已显示前 {max_comments} 条评论，使用 /pixiv_illust_comments {illust_id} {next_offset} 查看更多。"
+                comment_info += f"\n已显示前 {max_comments} 条评论，使用 /pixiv获取作品评论 {illust_id} {next_offset} 查看更多。"
 
             yield event.plain_result(comment_info)
 
@@ -1237,7 +1237,7 @@ class PixivSearchPlugin(Star):
             logger.error(traceback.format_exc())
             yield event.plain_result(f"获取作品评论时发生错误: {str(e)}")
 
-    @command("pixiv_novel_comments")
+    @command("pixiv获取小说评论")
     async def pixiv_novel_comments(self, event: AstrMessageEvent, novel_id: str = "", offset: str = ""):
         """获取指定小说的评论"""
         # 检查是否提供了小说 ID
@@ -1390,7 +1390,7 @@ class PixivSearchPlugin(Star):
             # 如果评论数量超过显示限制，提示用户
             if len(comments) > max_comments:
                 next_offset = (int(offset) if offset else 0) + max_comments
-                comment_info += f"\n已显示前 {max_comments} 条评论，使用 /pixiv_novel_comments {novel_id} {next_offset} 查看更多。"
+                comment_info += f"\n已显示前 {max_comments} 条评论，使用 /pixiv获取小说评论 {novel_id} {next_offset} 查看更多。"
 
             yield event.plain_result(comment_info)
 
@@ -1505,7 +1505,7 @@ class PixivSearchPlugin(Star):
             logger.error(f"Pixiv 插件：下载或转换小说为PDF时发生错误 - {e}")
             yield event.plain_result(f"处理小说时发生错误: {str(e)}")
 
-    @command("pixiv_illust_new")
+    @command("pixiv获取大家的新插画作品")
     async def pixiv_illust_new(self, event: AstrMessageEvent, content_type: str = "illust", max_illust_id: str = ""):
         """获取大家的新插画作品"""
         # 检查是否为帮助请求
@@ -1580,7 +1580,7 @@ class PixivSearchPlugin(Star):
             logger.error(f"Pixiv 插件：获取新插画作品时发生错误 - {e}")
             yield event.plain_result(f"获取新插画作品时发生错误: {str(e)}")
 
-    @command("pixiv_novel_new")
+    @command("pixiv获取大家的新小说")
     async def pixiv_novel_new(self, event: AstrMessageEvent, max_novel_id: str = ""):
         """获取大家的新小说"""
         # 检查是否为帮助请求
@@ -1648,7 +1648,7 @@ class PixivSearchPlugin(Star):
             logger.error(f"Pixiv 插件：获取新小说时发生错误 - {e}")
             yield event.plain_result(f"获取新小说时发生错误: {str(e)}")
 
-    @command("pixiv_trending_tags")
+    @command("pixiv趋势标签")
     async def pixiv_trending_tags(self, event: AstrMessageEvent):
         """获取 Pixiv 插画趋势标签"""
         logger.info("Pixiv 插件：正在获取插画趋势标签...")
@@ -1693,7 +1693,7 @@ class PixivSearchPlugin(Star):
             logger.error(f"Pixiv 插件：获取趋势标签时发生错误 - {e}")
             yield event.plain_result(f"获取趋势标签时发生错误: {str(e)}")
 
-    @command("pixiv_ai_show_settings")
+    @command("pixiv是否展示AI作品")
     async def pixiv_ai_show_settings(self, event: AstrMessageEvent, setting: str = ""):
         """设置是否展示AI生成作品"""
         # 检查是否为帮助请求
@@ -1748,7 +1748,7 @@ class PixivSearchPlugin(Star):
             logger.error(traceback.format_exc())
             yield event.plain_result(f"设置AI作品显示时发生错误: {str(e)}")
 
-    @command("pixiv_showcase_article")
+    @command("pixiv特辑详情")
     async def pixiv_showcase_article(self, event: AstrMessageEvent, showcase_id: str = ""):
         """获取特辑详情"""
         # 检查是否提供了特辑 ID
@@ -2258,7 +2258,7 @@ class PixivSearchPlugin(Star):
 
             logger.error(traceback.format_exc())
 
-    @command("pixiv_specific")
+    @command("pixiv指定作品详情")
     async def pixiv_specific(self, event: AstrMessageEvent, illust_id: str = ""):
         """根据作品 ID 获取特定作品详情"""
         # 检查是否提供了作品 ID
