@@ -5,8 +5,9 @@ import base64
 import subprocess
 import zipfile
 import tempfile
+import json
 from pathlib import Path
-from typing import Any, Optional
+from typing import Any, Optional, Dict, Tuple
 from astrbot.api import logger
 from astrbot.api.message_components import Image, Plain, Node, Nodes
 from pixivpy3 import AppPixivAPI
@@ -25,6 +26,50 @@ def init_pixiv_utils(client: AppPixivAPI, config: PixivConfig, temp_dir: Path):
     global _config, _temp_dir
     _config = config
     _temp_dir = temp_dir
+
+
+async def check_nsfw_image(image_url: str) -> Tuple[bool, str]:
+    """
+    检查图片是否为违规内容（黄图）
+    
+    Args:
+        image_url: 图片的URL
+        
+    Returns:
+        Tuple[bool, str]: (是否违规, 违规原因)
+    """
+    try:
+        # AI鉴黄API地址
+        api_url = "https://api3.mhimg.cn/api/safe_img"
+        
+        # 构建请求参数
+        params = {
+            "img": image_url
+        }
+        
+        # 发送请求
+        async with aiohttp.ClientSession() as session:
+            async with session.get(api_url, params=params) as response:
+                if response.status == 200:
+                    result = await response.json()
+                    
+                    # 检查返回结果
+                    if "response" in result:
+                        response_data = result["response"]
+                        is_nsfw = response_data.get("is_nsfw", False)
+                        judgment = response_data.get("judgment", "")
+                        
+                        return is_nsfw, judgment
+                    else:
+                        logger.error(f"黄图检测API返回格式错误: {result}")
+                        return False, "检测失败"
+                else:
+                    logger.error(f"黄图检测API请求失败，状态码: {response.status}")
+                    return False, "检测失败"
+    except Exception as e:
+        logger.error(f"黄图检测时发生错误: {e}")
+        # 检测失败时默认为安全，避免误判导致无法正常使用
+        return False, "检测失败"
 
 
 def filter_items(items, tag_label, excluded_tags=None):
@@ -251,48 +296,57 @@ async def send_pixiv_image(
         url_sources.append((url_obj, detail_message))
 
     for url_obj, msg in url_sources:
-        quality_preference = ["original", "large", "medium"]
-        start_index = (
-            quality_preference.index(_config.image_quality)
-            if _config.image_quality in quality_preference
-            else 0
-        )
-        qualities_to_try = quality_preference[start_index:]
+            quality_preference = ["original", "large", "medium"]
+            start_index = (
+                quality_preference.index(_config.image_quality)
+                if _config.image_quality in quality_preference
+                else 0
+            )
+            qualities_to_try = quality_preference[start_index:]
 
-        image_sent_for_source = False
-        for quality in qualities_to_try:
-            image_url = getattr(url_obj, quality, None)
-            if not image_url:
-                continue
+            image_sent_for_source = False
+            for quality in qualities_to_try:
+                image_url = getattr(url_obj, quality, None)
+                if not image_url:
+                    continue
 
-            logger.info(f"Pixiv 插件：尝试发送图片，质量: {quality}, URL: {image_url}")
-            try:
-                async with aiohttp.ClientSession() as session:
-                    img_data = await download_image(session, image_url)
-                    if img_data:
-                        # 直接使用字节数据发送图片，避免文件系统路径问题
-                        if show_details and msg:
-                            yield event.chain_result(
-                                [Image.fromBytes(img_data), Plain(msg)]
-                            )
+                logger.info(f"Pixiv 插件：尝试发送图片，质量: {quality}, URL: {image_url}")
+                
+                # 黄图检测
+                is_nsfw, judgment = await check_nsfw_image(image_url)
+                if is_nsfw:
+                    logger.info(f"Pixiv 插件：检测到违规图片，已拦截 - {judgment}")
+                    yield event.plain_result("违规图已撤回！")
+                    image_sent_for_source = True  # 标记为已处理，避免重复发送
+                    break  # 检测到违规，直接退出循环
+                
+                try:
+                    async with aiohttp.ClientSession() as session:
+                        img_data = await download_image(session, image_url)
+                        if img_data:
+                            # 直接使用字节数据发送图片，避免文件系统路径问题
+                            if show_details and msg:
+                                yield event.chain_result(
+                                    [Image.fromBytes(img_data), Plain(msg)]
+                                )
+                            else:
+                                yield event.chain_result(
+                                    [Image.fromBytes(img_data)]
+                                )
+
+                            image_sent_for_source = True
+                            break  # 此源成功，移动到下一个源
                         else:
-                            yield event.chain_result(
-                                [Image.fromBytes(img_data)]
+                            logger.warning(
+                                f"Pixiv 插件：图片下载失败 (质量: {quality})。尝试下一质量..."
                             )
+                except Exception as e:
+                    logger.error(
+                        f"Pixiv 插件：图片下载异常 (质量: {quality}) - {e}。尝试下一质量..."
+                    )
 
-                        image_sent_for_source = True
-                        break  # 此源成功，移动到下一个源
-                    else:
-                        logger.warning(
-                            f"Pixiv 插件：图片下载失败 (质量: {quality})。尝试下一质量..."
-                        )
-            except Exception as e:
-                logger.error(
-                    f"Pixiv 插件：图片下载异常 (质量: {quality}) - {e}。尝试下一质量..."
-                )
-
-        if not image_sent_for_source:
-            yield event.plain_result(f"图片下载失败，仅发送信息：\n{msg or ''}")
+            if not image_sent_for_source:
+                yield event.plain_result(f"图片下载失败，仅发送信息：\n{msg or ''}")
 
 async def send_ugoira(client: AppPixivAPI, event: Any, illust, detail_message: str = None):
     """
@@ -303,6 +357,15 @@ async def send_ugoira(client: AppPixivAPI, event: Any, illust, detail_message: s
     await smart_clean_temp_dir(_temp_dir, probability=0.1, max_files=20)
     
     try:
+        # 对动图的封面图片进行黄图检测
+        cover_image_url = getattr(illust.image_urls, "large", getattr(illust.image_urls, "medium", None))
+        if cover_image_url:
+            is_nsfw, judgment = await check_nsfw_image(cover_image_url)
+            if is_nsfw:
+                logger.info(f"Pixiv 插件：检测到违规动图，已拦截 - {judgment}")
+                yield event.plain_result("违规图已撤回！")
+                return
+        
         async with aiohttp.ClientSession() as session:
             # 使用通用函数处理动图
             content = await process_ugoira_for_content(client, session, illust, detail_message)
@@ -494,6 +557,15 @@ async def send_forward_message(client: AppPixivAPI, event, images, build_detail_
             for img in batch_imgs:
                 # 检查是否为动图
                 if hasattr(img, 'type') and img.type == 'ugoira':
+                    # 对动图的封面图片进行黄图检测
+                    cover_image_url = getattr(img.image_urls, "large", getattr(img.image_urls, "medium", None))
+                    if cover_image_url:
+                        is_nsfw, judgment = await check_nsfw_image(cover_image_url)
+                        if is_nsfw:
+                            logger.info(f"Pixiv 插件：转发消息中检测到违规动图，已跳过 - {judgment}")
+                            node_content = [Plain("违规图已撤回！")]
+                            continue  # 跳过当前动图，处理下一张图片
+                    
                     # 使用通用函数处理动图
                     detail_message = build_detail_message_func(img) if _config.show_details else None
                     content = await process_ugoira_for_content(client, session, img, detail_message)
@@ -549,6 +621,13 @@ async def send_forward_message(client: AppPixivAPI, event, images, build_detail_
                             continue
                             
                         logger.info(f"Pixiv 插件：转发消息尝试发送图片，质量: {quality}, URL: {image_url}")
+                        
+                        # 黄图检测
+                        is_nsfw, judgment = await check_nsfw_image(image_url)
+                        if is_nsfw:
+                            logger.info(f"Pixiv 插件：转发消息中检测到违规图片，已跳过 - {judgment}")
+                            continue  # 检测到违规，尝试下一质量
+                        
                         img_data = await download_image(session, image_url, headers)
                         if img_data:
                             # 直接使用字节数据发送图片，避免文件系统路径问题
